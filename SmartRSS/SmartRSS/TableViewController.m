@@ -7,12 +7,14 @@
 //
 
 #import "TableViewController.h"
+#import "MasterViewController.h"
 
 @interface TableViewController ()
 @end
 
 @implementation TableViewController
 
+NSUInteger k;
 
 - (void)viewDidLoad
 {
@@ -86,11 +88,23 @@ if (cell == nil) {
 	return 40;
 }
 
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"selnum"]) {
+        MasterViewController *gomaster = segue.destinationViewController;
+        gomaster.num = k;
+    }
+    
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     NSUInteger row = [indexPath row];
-	NSLog(@"\n選択された行は『%d行目』です！\n",row);
+    k = row;
+    NSLog(@"\n選択された行は『%d行目』です！\n",k);
+    
 }
+
 
 @end

@@ -18,13 +18,13 @@
     NSMutableString *title;
     NSMutableString *link;
     NSString *element;
-    NSString *site;
-    int n;
+
 }
 @end
 
 @implementation MasterViewController
 
+@synthesize num;
 
 
 - (void)awakeFromNib
@@ -36,11 +36,11 @@
     [super viewDidLoad];
     path = [[NSBundle mainBundle] pathForResource:@"sites" ofType:@"plist"];
     plist = [NSArray arrayWithContentsOfFile:path];
-    n=0;
-    site = plist[n];
+    
+    NSLog(@"%d", num);
     
     feeds = [[NSMutableArray alloc] init];
-    NSURL *url = [NSURL URLWithString:site];
+    NSURL *url = [NSURL URLWithString: plist[num]];
     parser = [[NSXMLParser alloc] initWithContentsOfURL:url];
     [parser setDelegate:self];
     [parser setShouldResolveExternalEntities:NO];
@@ -131,8 +131,8 @@
 }
 
 -(IBAction)refresh:(id)sender {
-    [self reloadData];
- 
+    [self.tableView reloadData];
+    
 }
 
 @end

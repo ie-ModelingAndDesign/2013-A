@@ -29,7 +29,11 @@
 {
     [super viewDidLoad];
      self.title = @"新規登録画面";
-	// Do any additional setup after loading the view.
+   }
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,4 +44,5 @@
 -(IBAction)textFiledDoneEditing:(id)sender{
     [sender resignFirstResponder];
 }
+
 @end

@@ -10,6 +10,6 @@
 
 @interface TableViewController : UITableViewController {
     NSString *path;
-    NSArray *plist;
+    NSArray *plist;  
 }
 @end

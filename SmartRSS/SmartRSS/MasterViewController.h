@@ -12,7 +12,7 @@
 NSString *path;
 NSArray *plist;
 }
-
+@property NSInteger num;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end
