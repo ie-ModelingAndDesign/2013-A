@@ -29,11 +29,23 @@
 {
     [super viewDidLoad];
      self.title = @"新規登録画面";
-   }
+    [self configureView];
+   
+}
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+}
+
+- (void)configureView
+{
+    path = [[NSBundle mainBundle] pathForResource:@"sites" ofType:@"plist"];
+    plist = [NSArray arrayWithContentsOfFile:path];
+    NSLog(@"\nRSS:%@\n", path);
+    NSLog(@"\nRSS:%@\n", plist);
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,5 +56,4 @@
 -(IBAction)textFiledDoneEditing:(id)sender{
     [sender resignFirstResponder];
 }
-
 @end

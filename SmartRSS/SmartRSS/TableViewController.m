@@ -14,7 +14,6 @@
 
 @implementation TableViewController
 
-NSUInteger k;
 
 - (void)viewDidLoad
 {
@@ -89,22 +88,21 @@ if (cell == nil) {
 }
 
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud setInteger:[indexPath row] forKey:@"num"];
+   
+}
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+/*- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"selnum"]) {
         MasterViewController *gomaster = segue.destinationViewController;
         gomaster.num = k;
+
     }
-    
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSUInteger row = [indexPath row];
-    k = row;
-    NSLog(@"\n選択された行は『%d行目』です！\n",k);
-    
-}
-
+ 
+}*/
 
 @end

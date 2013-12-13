@@ -39,8 +39,11 @@
     
     NSLog(@"%d", num);
     
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];  
+    int i = [ud integerForKey:@"num"];
+    
     feeds = [[NSMutableArray alloc] init];
-    NSURL *url = [NSURL URLWithString: plist[num]];
+    NSURL *url = [NSURL URLWithString: plist[i]];
     parser = [[NSXMLParser alloc] initWithContentsOfURL:url];
     [parser setDelegate:self];
     [parser setShouldResolveExternalEntities:NO];
@@ -131,7 +134,11 @@
 }
 
 -(IBAction)refresh:(id)sender {
-    [self.tableView reloadData];
+    [UIView animateWithDuration:1.0f
+        animations:^{
+              [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
+                                withRowAnimation:UITableViewRowAnimationBottom];
+                     }];
     
 }
 
