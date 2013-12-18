@@ -37,7 +37,7 @@
     path = [[NSBundle mainBundle] pathForResource:@"sites" ofType:@"plist"];
     plist = [NSArray arrayWithContentsOfFile:path];
     
-    NSLog(@"%d", num);
+   // NSLog(@"%d", num);
     
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];  
     int i = [ud integerForKey:@"num"];
@@ -70,6 +70,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     cell.textLabel.text = [[feeds objectAtIndex:indexPath.row] objectForKey: @"title"];
+    cell.textLabel.numberOfLines = 0;
+    cell.textLabel.font = [UIFont systemFontOfSize:13];
     return cell;
 }
 
@@ -107,7 +109,7 @@
     } else if ([element isEqualToString:@"link"]) {
         [link appendString:string];
     }
-    
+ 
 }
 
 - (void)parserDidEndDocument:(NSXMLParser *)parser {
@@ -141,5 +143,6 @@
                      }];
     
 }
+
 
 @end

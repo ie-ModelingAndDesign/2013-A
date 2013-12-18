@@ -34,7 +34,7 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+    
     }
     return self;
 }
@@ -42,8 +42,7 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -85,6 +84,18 @@ if (cell == nil) {
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 	return 40;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+      NSLog(@"%@",plist);
+     // [plist removeObjectAtIndex:indexPath.row];
+       // [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+         //   withRowAnimation:UITableViewRowAnimationFade];
+      NSLog(@"%@",plist);
+    }
 }
 
 
