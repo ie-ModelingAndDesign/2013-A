@@ -9,12 +9,12 @@
 #import "DetailViewController.h"
 
 @implementation DetailViewController
-
+@synthesize ti;
 #pragma mark - Managing the detail item
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = _url;
+    self.title = ti;
     //NSLog(@"\n%@",_url);
     NSURL *myURL = [NSURL URLWithString: [self.url stringByAddingPercentEscapesUsingEncoding:
                                           NSUTF8StringEncoding]];

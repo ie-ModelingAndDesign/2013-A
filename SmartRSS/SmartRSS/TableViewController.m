@@ -25,7 +25,7 @@
 - (void)configureView
 {
     path = [[NSBundle mainBundle] pathForResource:@"sites" ofType:@"plist"];
-    plist = [NSArray arrayWithContentsOfFile:path];
+    plist = [NSMutableArray arrayWithContentsOfFile:path];
    // NSLog(@"RSS:%@", plist);
 
 	}
@@ -90,11 +90,11 @@ if (cell == nil) {
 {
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
-      NSLog(@"%@",plist);
-     // [plist removeObjectAtIndex:indexPath.row];
-       // [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-         //   withRowAnimation:UITableViewRowAnimationFade];
-      NSLog(@"%@",plist);
+     NSLog(@"%@",plist);
+     [plist removeObjectAtIndex:indexPath.row];
+     [tableView deleteRowsAtIndexPaths:[NSMutableArray arrayWithObject:indexPath]
+     withRowAnimation:UITableViewRowAnimationFade];
+    
     }
 }
 

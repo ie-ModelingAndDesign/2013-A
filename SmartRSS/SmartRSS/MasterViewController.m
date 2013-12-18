@@ -84,7 +84,7 @@
         item    = [[NSMutableDictionary alloc] init];
         title   = [[NSMutableString alloc] init];
         link    = [[NSMutableString alloc] init];
-        
+       
     }
     
 }
@@ -125,9 +125,12 @@
         NSString *string = [feeds[indexPath.row] objectForKey: @"link"];
         [[segue destinationViewController] setUrl:string];
         
-
+        NSString *st = [feeds[indexPath.row] objectForKey: @"title"];
+        DetailViewController *gomaster = segue.destinationViewController;
+        gomaster.ti = st;
+        
     }
-
+ 
 }
 
 -(void)reloadData{
