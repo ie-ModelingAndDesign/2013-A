@@ -9,9 +9,16 @@
 #import "TableViewController.h"
 #import "MasterViewController.h"
 
-@interface TableViewController ()
-@end
+@interface TableViewController (){
+    NSXMLParser *parser;
+    NSMutableArray *feeds;
+    NSMutableDictionary *item;
+    NSMutableString *title;
+    NSMutableString *link;
+    NSString *element;
+}
 
+@end
 @implementation TableViewController
 
 
@@ -24,9 +31,16 @@
 
 - (void)configureView
 {
-    path = [[NSBundle mainBundle] pathForResource:@"sites" ofType:@"plist"];
+    // ホームディレクトリを取得
+    NSString *homeDir = NSHomeDirectory();
+    
+    // 書き込みたいplistのパスを作成
+    path = [homeDir stringByAppendingPathComponent:@"sites.plist"];
+
+    //path = [[NSBundle mainBundle] pathForResource:@"sites" ofType:@"plist"];
     plist = [NSMutableArray arrayWithContentsOfFile:path];
-   // NSLog(@"RSS:%@", plist);
+   
+  //  NSLog(@"RSS:%@", path);
 
 	}
 
@@ -74,9 +88,17 @@ if (cell == nil) {
     }
     
     // Configure the cell...
+    // Configure the cell...
     NSInteger row = [indexPath row];
+    
+    NSURL *xmlURL = [NSURL URLWithString:[plist objectAtIndex:row]];
+    xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlURL];
+    [xmlParser setDelegate:self];
+    [xmlParser parse];
+    
 	cell.textLabel.font = [UIFont boldSystemFontOfSize:18];
-	cell.textLabel.text = [plist objectAtIndex:row];
+	cell.textLabel.text = currentTitle;
+    //cell.textLabel.text = [plist objectAtIndex:row];
     return cell;
 }
 
@@ -91,13 +113,29 @@ if (cell == nil) {
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
      NSLog(@"%@",plist);
-     [plist removeObjectAtIndex:indexPath.row];
-     [tableView deleteRowsAtIndexPaths:[NSMutableArray arrayWithObject:indexPath]
+    NSInteger row = [indexPath row];
+    [plist removeObjectAtIndex:row];
+    [tableView deleteRowsAtIndexPaths:[NSMutableArray arrayWithObject:indexPath]
      withRowAnimation:UITableViewRowAnimationFade];
-    
+  
     }
-}
+  
+    NSInteger row = [indexPath row];
+    
+    dict = [NSMutableArray arrayWithContentsOfFile:path];
+    
+    
+    [dict removeObjectAtIndex:row];
+    NSLog(@"%@", dict);
+    
+    BOOL result = [dict writeToFile:path atomically:NO];
+    if (!result) {
+     NSLog(@"ファイルの書き込みに失敗");
+    }else{
+     NSLog(@"ファイルの書き込みが完了しました");
+ }
 
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -106,6 +144,44 @@ if (cell == nil) {
     [ud setInteger:[indexPath row] forKey:@"num"];
    
 }
+- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName
+  namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
+	attributes:(NSDictionary *)attributeDict{
+	currentElement = [elementName copy];
+	if ([elementName isEqualToString:@"channel"]) {
+		currentTitle = [[NSMutableString alloc] init];
+	}
+    if ([elementName isEqualToString:@"item"]) {
+        isItem = YES;
+    }
+}
+
+- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
+    if (!isItem) {
+        if ([currentElement isEqualToString:@"title"]) {
+            [currentTitle setString:string];
+            [xmlParser abortParsing];
+        }
+	}
+}
+
+- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName
+  namespaceURI:(NSString *)namespaceURI
+ qualifiedName:(NSString *)qName{
+    if (!isItem) {
+        if ([elementName isEqualToString:@"channel"]) {
+            NSLog(@"adding story: %@", currentTitle);
+        }
+	}
+    isItem = NO;
+}
+
+/*
+- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError{
+    NSLog(@"error: %@", parseError);
+    
+}
+ */
 
 /*- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"selnum"]) {

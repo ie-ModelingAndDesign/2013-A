@@ -34,7 +34,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    path = [[NSBundle mainBundle] pathForResource:@"sites" ofType:@"plist"];
+    NSString *homeDir = NSHomeDirectory();
+    path = [homeDir stringByAppendingPathComponent:@"sites.plist"];
+    //path = [[NSBundle mainBundle] pathForResource:@"sites" ofType:@"plist"];
     plist = [NSArray arrayWithContentsOfFile:path];
     
    // NSLog(@"%d", num);
@@ -139,13 +141,20 @@
 }
 
 -(IBAction)refresh:(id)sender {
+    [self.tableView reloadData];
+    
     [UIView animateWithDuration:1.0f
         animations:^{
-              [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
-                                withRowAnimation:UITableViewRowAnimationBottom];
-                     }];
-    
-}
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
+                    withRowAnimation:UITableViewRowAnimationBottom];
+            }];
+    [self top];
+ }
 
+-(void)top{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:
+     UITableViewScrollPositionTop animated:YES];
+}
 
 @end

@@ -10,10 +10,10 @@
 
 @interface ViewController ()
 
+
 @end
 
 @implementation ViewController
-
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,9 +28,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-     self.title = @"新規登録画面";
+     self.title = @"RSS登録画面";
     [self configureView];
-   
+    
 }
 
 - (void)viewDidUnload
@@ -40,20 +40,72 @@
 
 - (void)configureView
 {
-    path = [[NSBundle mainBundle] pathForResource:@"sites" ofType:@"plist"];
+    NSString *homeDir = NSHomeDirectory();
+    path = [homeDir stringByAppendingPathComponent:@"sites.plist"];
+   // path = [[NSBundle mainBundle] pathForResource:@"sites" ofType:@"plist"];
     plist = [NSArray arrayWithContentsOfFile:path];
-    NSLog(@"\nRSS:%@\n", path);
-    NSLog(@"\nRSS:%@\n", plist);
+   // NSLog(@"\nRSS:%@\n", path);
     
+    UITextField *customTextField = [[UITextField alloc] initWithFrame:CGRectMake(10.0, 100.0, 300.0, 40.0)];
+	customTextField.borderStyle = UITextBorderStyleRoundedRect;
+	customTextField.font = [UIFont systemFontOfSize:20.0];
+	customTextField.textColor = [UIColor blackColor];
+    customTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+	customTextField.backgroundColor = [UIColor whiteColor];
+	customTextField.placeholder = @"ここに入力してください";
+	customTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+	customTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+	customTextField.keyboardType = UIKeyboardTypeDefault;
+	customTextField.returnKeyType = UIReturnKeyDone;
+	customTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+	customTextField.delegate = self;
+	[customTextField addTarget:self action:@selector(action:) forControlEvents:UIControlEventEditingDidEnd];
     
+	[self.view addSubview:customTextField];
 }
 
+/*
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
--(IBAction)textFiledDoneEditing:(id)sender{
-    [sender resignFirstResponder];
+*/
+- (void)action:(id)sender
+{
+    UITextField *tempTextField = sender;
+  //  NSLog(@"入力された文字は『%@』です！",tempTextField.text);
+    str = [NSMutableString stringWithFormat:@"%@", tempTextField.text];
 }
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+	[textField resignFirstResponder];
+	return YES;
+}
+
+
+
+- (IBAction)button:(id)sender {
+    NSLog(@"\n%@\n", str);
+    
+
+    dict = [NSMutableArray arrayWithContentsOfFile:path];
+   
+    [dict addObject:str];
+    
+    BOOL result = [dict writeToFile:path atomically:NO];
+    if (!result) {
+        NSLog(@"ファイルの書き込みに失敗");
+    }else{
+        NSLog(@"ファイルの書き込みが完了しました");
+    }
+
+}
+
 @end

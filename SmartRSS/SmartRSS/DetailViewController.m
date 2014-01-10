@@ -15,7 +15,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = ti;
-    //NSLog(@"\n%@",_url);
+    
+    //NSLog(@"\n%@",ti);
     NSURL *myURL = [NSURL URLWithString: [self.url stringByAddingPercentEscapesUsingEncoding:
                                           NSUTF8StringEncoding]];
     NSURLRequest *request = [NSURLRequest requestWithURL:myURL];

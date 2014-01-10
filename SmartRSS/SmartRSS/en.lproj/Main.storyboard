@@ -165,17 +165,9 @@
                                 </state>
                                 <connections>
                                     <action selector="btn:" destination="j1N-iM-8Tc" eventType="editingDidEndOnExit" id="oiS-gP-Yb2"/>
+                                    <action selector="button:" destination="j1N-iM-8Tc" eventType="touchDown" id="PTe-1W-1P5"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="V1N-RY-awP">
-                                <rect key="frame" x="67" y="111" width="186" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="textFiledDoneEditing:" destination="j1N-iM-8Tc" eventType="editingDidEndOnExit" id="5Ys-Pr-na7"/>
-                                </connections>
-                            </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="URL" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="o07-EQ-QtA">
                                 <rect key="frame" x="143" y="82" width="34" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

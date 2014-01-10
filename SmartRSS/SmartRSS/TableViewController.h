@@ -8,8 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TableViewController : UITableViewController {
+@interface TableViewController : UITableViewController  <NSXMLParserDelegate> {
     NSString *path;
     NSMutableArray *plist;
+    NSMutableArray *dict;
+    NSString * currentElement;
+    NSMutableArray *rss_title;
+	NSMutableString *currentTitle;
+    NSXMLParser * xmlParser;
+    BOOL isItem;
 }
 @end

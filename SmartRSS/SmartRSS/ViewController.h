@@ -8,8 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController {
+@interface ViewController : UIViewController <UITextFieldDelegate>{
 NSString *path;
 NSArray *plist;
+NSMutableArray *dict;
+NSMutableString *str;
 }
+- (void)configureView;
+- (void)action:(id)sender;
+
 @end
