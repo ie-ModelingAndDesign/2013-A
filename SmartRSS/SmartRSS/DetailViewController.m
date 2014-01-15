@@ -17,6 +17,7 @@
     self.title = ti;
     
     //NSLog(@"\n%@",ti);
+   // NSLog(@"\n%@",self.url);
     NSURL *myURL = [NSURL URLWithString: [self.url stringByAddingPercentEscapesUsingEncoding:
                                           NSUTF8StringEncoding]];
     NSURLRequest *request = [NSURLRequest requestWithURL:myURL];

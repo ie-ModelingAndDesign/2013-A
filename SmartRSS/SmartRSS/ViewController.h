@@ -13,6 +13,7 @@ NSString *path;
 NSArray *plist;
 NSMutableArray *dict;
 NSMutableString *str;
+UITextField *tempTextField;
 }
 - (void)configureView;
 - (void)action:(id)sender;

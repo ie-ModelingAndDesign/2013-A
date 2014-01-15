@@ -55,12 +55,12 @@
 	customTextField.placeholder = @"ここに入力してください";
 	customTextField.autocorrectionType = UITextAutocorrectionTypeNo;
 	customTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-	customTextField.keyboardType = UIKeyboardTypeDefault;
+	customTextField.keyboardType = UIKeyboardTypeEmailAddress; 
 	customTextField.returnKeyType = UIReturnKeyDone;
 	customTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
 	customTextField.delegate = self;
 	[customTextField addTarget:self action:@selector(action:) forControlEvents:UIControlEventEditingDidEnd];
-    
+    [customTextField becomeFirstResponder];
 	[self.view addSubview:customTextField];
 }
 
@@ -73,9 +73,9 @@
 */
 - (void)action:(id)sender
 {
-    UITextField *tempTextField = sender;
+    tempTextField = sender;
   //  NSLog(@"入力された文字は『%@』です！",tempTextField.text);
-    str = [NSMutableString stringWithFormat:@"%@", tempTextField.text];
+   // str = [NSMutableString stringWithFormat:@"%@", tempTextField.text];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -92,8 +92,8 @@
 
 
 - (IBAction)button:(id)sender {
-    NSLog(@"\n%@\n", str);
-    
+   // NSLog(@"\n%@\n", str);
+    str = [NSMutableString stringWithFormat:@"%@", tempTextField.text];
 
     dict = [NSMutableArray arrayWithContentsOfFile:path];
    
@@ -104,6 +104,7 @@
         NSLog(@"ファイルの書き込みに失敗");
     }else{
         NSLog(@"ファイルの書き込みが完了しました");
+        tempTextField.text=NULL;
     }
 
 }
