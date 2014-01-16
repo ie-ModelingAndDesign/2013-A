@@ -15,14 +15,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = ti;
-    
-    //NSLog(@"\n%@",ti);
-   // NSLog(@"\n%@",self.url);
-    NSURL *myURL = [NSURL URLWithString: [self.url stringByAddingPercentEscapesUsingEncoding:
-                                          NSUTF8StringEncoding]];
+    NSString *decodeUrl = [self.url stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *encodeUrl = [decodeUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    encodeUrl = [encodeUrl stringByReplacingOccurrencesOfString:@"%0A%09%09" withString:@""];
+    NSURL *myURL = [NSURL URLWithString:encodeUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:myURL];
     [self.webView loadRequest:request];
-    }
-
+}
 
 @end
