@@ -31,10 +31,9 @@
 
 - (void)configureView
 {
-    // ホームディレクトリを取得
+    
     NSString *homeDir = NSHomeDirectory();
     
-    // 書き込みたいplistのパスを作成
     path = [homeDir stringByAppendingPathComponent:@"sites.plist"];
 
     //path = [[NSBundle mainBundle] pathForResource:@"sites" ofType:@"plist"];

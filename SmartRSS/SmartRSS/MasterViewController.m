@@ -36,7 +36,18 @@
     [super viewDidLoad];
     NSString *homeDir = NSHomeDirectory();
     path = [homeDir stringByAppendingPathComponent:@"sites.plist"];
-    //path = [[NSBundle mainBundle] pathForResource:@"sites" ofType:@"plist"];
+   // path = [[NSBundle mainBundle] pathForResource:@"sites" ofType:@"plist"];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    // ファイルが存在するか?
+    if ([fileManager fileExistsAtPath:path]) { // yes
+        NSLog(@"%@は既に存在しています", path);
+    } else {
+        NSLog(@"%@は存在していません", path);
+        
+    }
+
     plist = [NSArray arrayWithContentsOfFile:path];
     
    // NSLog(@"%d", num);
