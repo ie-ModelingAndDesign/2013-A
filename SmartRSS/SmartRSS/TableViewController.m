@@ -34,7 +34,7 @@
     
     NSString *homeDir = NSHomeDirectory();
     
-    path = [homeDir stringByAppendingPathComponent:@"sites.plist"];
+    path = [homeDir stringByAppendingPathComponent:@"Documents/sites.plist"];
 
     //path = [[NSBundle mainBundle] pathForResource:@"sites" ofType:@"plist"];
     plist = [NSMutableArray arrayWithContentsOfFile:path];
@@ -143,6 +143,7 @@ if (cell == nil) {
     [ud setInteger:[indexPath row] forKey:@"num"];
    
 }
+
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName
   namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 	attributes:(NSDictionary *)attributeDict{

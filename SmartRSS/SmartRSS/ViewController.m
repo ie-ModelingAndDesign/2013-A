@@ -41,7 +41,7 @@
 - (void)configureView
 {
     NSString *homeDir = NSHomeDirectory();
-    path = [homeDir stringByAppendingPathComponent:@"sites.plist"];
+    path = [homeDir stringByAppendingPathComponent:@"Documents/sites.plist"];
    // path = [[NSBundle mainBundle] pathForResource:@"sites" ofType:@"plist"];
     plist = [NSArray arrayWithContentsOfFile:path];
    // NSLog(@"\nRSS:%@\n", path);

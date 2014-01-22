@@ -35,19 +35,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSString *homeDir = NSHomeDirectory();
-    path = [homeDir stringByAppendingPathComponent:@"sites.plist"];
-   // path = [[NSBundle mainBundle] pathForResource:@"sites" ofType:@"plist"];
+    path = [homeDir stringByAppendingPathComponent:@"Documents/sites.plist"];
+    // path = [[NSBundle mainBundle] pathForResource:@"sites" ofType:@"plist"];
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
     // ファイルが存在するか?
-    if ([fileManager fileExistsAtPath:path]) { // yes
+    if ([fileManager fileExistsAtPath:path]) {
         NSLog(@"%@は既に存在しています", path);
     } else {
         NSLog(@"%@は存在していません", path);
         
-    }
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *directory = [paths objectAtIndex:0];
+        NSString *filePath = [directory stringByAppendingPathComponent:@"sites.plist"];
+        
+        NSArray *array = @[@"http://alfalfalfa.com/index.rdf", @"http://news.2chblog.jp/index.rdf"
+                           , @"http://ie.u-ryukyu.ac.jp/news-ie/feed/"];
+        BOOL successful = [array writeToFile:filePath atomically:NO];
+        if (successful) {
+            NSLog(@"%@", @"データの保存に成功しました。");
+        }
+        
 
+        }
+    
     plist = [NSArray arrayWithContentsOfFile:path];
     
    // NSLog(@"%d", num);
