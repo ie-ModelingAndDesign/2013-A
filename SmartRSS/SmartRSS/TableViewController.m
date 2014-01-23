@@ -125,7 +125,7 @@ if (cell == nil) {
     
     
     [dict removeObjectAtIndex:row];
-    NSLog(@"%@", dict);
+  //  NSLog(@"%@", dict);
     
     BOOL result = [dict writeToFile:path atomically:NO];
     if (!result) {
