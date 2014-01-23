@@ -105,8 +105,19 @@
     }else{
         NSLog(@"ファイルの書き込みが完了しました");
         tempTextField.text=NULL;
-    }
 
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:@"登録完了しました！"
+                              message:@"新規RSSの登録出来ました！"
+                              delegate:self
+                              cancelButtonTitle:@"OK！" otherButtonTitles:nil];
+        [alert show];
+        
+    }
+    NSArray *allControllers = self.navigationController.viewControllers;
+    NSInteger target = [allControllers count] - 2;
+    UITableViewController *parent = [allControllers objectAtIndex:target];
+    [parent.tableView reloadData];
 }
 
 @end

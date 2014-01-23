@@ -79,6 +79,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self configureView];
     static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -174,6 +175,15 @@ if (cell == nil) {
         }
 	}
     isItem = NO;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    // 強制的にメニューの項目をすべて再表示させる。
+    // これをしないと、子メニューで選択された項目の内容が表示に反映されない。
+    [self.tableView reloadData];
+    
+    [super viewDidAppear:animated];
 }
 
 /*

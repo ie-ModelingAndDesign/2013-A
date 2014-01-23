@@ -60,6 +60,16 @@
 
         }
     
+   
+  //  UIAlertView *alert = [[UIAlertView alloc]
+    //                      initWithTitle:@"ネットワークエラー"
+      //                    message:@"ネットワークに接続されていません"
+        //                  delegate:self
+    //                      cancelButtonTitle:@"OK！" otherButtonTitles:nil];
+   // [alert show];
+    
+    
+    
     plist = [NSArray arrayWithContentsOfFile:path];
     
    // NSLog(@"%d", num);
