@@ -9,7 +9,7 @@
 #import "MasterViewController.h"
 
 #import "DetailViewController.h"
-
+#import "Reachability.h"
 
 @interface MasterViewController () {
     NSXMLParser *parser;
@@ -59,15 +59,21 @@
         
 
         }
-    
    
-  //  UIAlertView *alert = [[UIAlertView alloc]
-    //                      initWithTitle:@"ネットワークエラー"
-      //                    message:@"ネットワークに接続されていません"
-        //                  delegate:self
-    //                      cancelButtonTitle:@"OK！" otherButtonTitles:nil];
-   // [alert show];
-    
+    Reachability* curReach = [Reachability reachabilityForInternetConnection];
+    NetworkStatus netStatus = [curReach currentReachabilityStatus];
+    if (netStatus == NotReachable) {
+        
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:@"ネットワークエラー"
+                              message:@"ネットワークに接続されていません。\n記事が取得出来ません"
+                              delegate:self
+                              cancelButtonTitle:@"OK！" otherButtonTitles:nil];
+        [alert show];
+        
+    } else {
+        NSLog(@"ネットワーク接続あり");
+    }
     
     
     plist = [NSArray arrayWithContentsOfFile:path];
