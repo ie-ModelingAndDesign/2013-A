@@ -50,8 +50,8 @@
         NSString *directory = [paths objectAtIndex:0];
         NSString *filePath = [directory stringByAppendingPathComponent:@"sites.plist"];
         
-        NSArray *array = @[@"http://alfalfalfa.com/index.rdf", @"http://news.2chblog.jp/index.rdf"
-                           , @"http://ie.u-ryukyu.ac.jp/news-ie/feed/"];
+        NSArray *array = @[@"http://ie.u-ryukyu.ac.jp/news-ie/feed/",@"http://alfalfalfa.com/index.rdf",
+                           @"http://news.2chblog.jp/index.rdf"];
         BOOL successful = [array writeToFile:filePath atomically:NO];
         if (successful) {
             NSLog(@"%@", @"データの保存に成功しました。");
@@ -63,15 +63,8 @@
     Reachability* curReach = [Reachability reachabilityForInternetConnection];
     NetworkStatus netStatus = [curReach currentReachabilityStatus];
     if (netStatus == NotReachable) {
-        
-        UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle:@"ネットワークエラー"
-                              message:@"ネットワークに接続されていません。\n記事が取得出来ません"
-                              delegate:self
-                              cancelButtonTitle:@"OK！" otherButtonTitles:nil];
-        [alert show];
-        
-    } else {
+        [self erroralert];
+            } else {
         NSLog(@"ネットワーク接続あり");
     }
     
@@ -81,7 +74,7 @@
    // NSLog(@"%d", num);
     
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];  
-    int i = [ud integerForKey:@"num"];
+    long i = [ud integerForKey:@"num"];
     
     feeds = [[NSMutableArray alloc] init];
     NSURL *url = [NSURL URLWithString: plist[i]];
@@ -180,20 +173,40 @@
 }
 
 -(IBAction)refresh:(id)sender {
-    [self.tableView reloadData];
     
+    Reachability* curReach = [Reachability reachabilityForInternetConnection];
+    NetworkStatus netStatus = [curReach currentReachabilityStatus];
+    if (netStatus == NotReachable) {
+    
+        [self erroralert];
+   
+    } else {
+    [self viewDidLoad];
+    [self.tableView reloadData];
     [UIView animateWithDuration:1.0f
         animations:^{
             [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
                     withRowAnimation:UITableViewRowAnimationBottom];
             }];
     [self top];
- }
+    }
+
+}
 
 -(void)top{
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:
      UITableViewScrollPositionTop animated:YES];
+}
+
+-(void)erroralert{
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle:@"ネットワークエラー"
+                          message:@"ネットワークに接続されていません。\n記事が取得出来ません。"
+                          delegate:self
+                          cancelButtonTitle:@"OK！" otherButtonTitles:nil];
+    [alert show];
+
 }
 
 @end
