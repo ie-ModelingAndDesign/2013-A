@@ -37,6 +37,9 @@
    // sti=@"記事一覧";
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSString *s = [ud stringForKey:@"sti"];
+    if (s == nil && [s length] == 0) {
+        s=@"News-ie";
+    }
     self.title = s;
     NSString *homeDir = NSHomeDirectory();
     path = [homeDir stringByAppendingPathComponent:@"Documents/sites.plist"];
