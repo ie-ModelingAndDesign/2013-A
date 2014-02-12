@@ -142,6 +142,9 @@ if (cell == nil) {
     
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     [ud setInteger:[indexPath row] forKey:@"num"];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+     NSLog(@"%@", cell.textLabel.text);
+    [ud setObject:cell.textLabel.text forKey:@"sti"];
    
 }
 
@@ -192,14 +195,13 @@ if (cell == nil) {
     
 }
  */
-
-/*- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+/*
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"selnum"]) {
         MasterViewController *gomaster = segue.destinationViewController;
-        gomaster.num = k;
-
+        gomaster.sti = currentTitle;
+    //    NSLog("@%@",ud);
     }
- 
-}*/
-
+}
+*/
 @end

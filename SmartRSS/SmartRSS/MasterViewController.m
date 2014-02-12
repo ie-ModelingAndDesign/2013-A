@@ -25,7 +25,7 @@
 @implementation MasterViewController
 
 @synthesize num;
-
+@synthesize sti;
 
 - (void)awakeFromNib
 {
@@ -34,6 +34,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+   // sti=@"記事一覧";
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *s = [ud stringForKey:@"sti"];
+    self.title = s;
     NSString *homeDir = NSHomeDirectory();
     path = [homeDir stringByAppendingPathComponent:@"Documents/sites.plist"];
     // path = [[NSBundle mainBundle] pathForResource:@"sites" ofType:@"plist"];
@@ -73,7 +77,7 @@
     
    // NSLog(@"%d", num);
     
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];  
+   // NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     long i = [ud integerForKey:@"num"];
     
     feeds = [[NSMutableArray alloc] init];
